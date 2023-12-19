@@ -11,6 +11,7 @@ import componentsRouter from './modules/components'
 import chartsRouter from './modules/charts'
 import tableRouter from './modules/table'
 import nestedRouter from './modules/nested'
+import fa from 'element-ui/src/locale/lang/fa'
 
 /**
  * Note: sub-menu only appear when route children.length >= 1
@@ -56,6 +57,11 @@ export const constantRoutes = [
     hidden: true
   },
   {
+    path: '/home2',
+    component: () => import('@/views/home/index'),
+    hidden: true
+  },
+  {
     path: '/auth-redirect',
     component: () => import('@/views/login/auth-redirect'),
     hidden: true
@@ -72,17 +78,21 @@ export const constantRoutes = [
   },
   {
     path: '/',
-    component: Layout,
-    redirect: '/dashboard',
-    children: [
-      {
-        path: 'dashboard',
-        component: () => import('@/views/dashboard/index'),
-        name: 'Dashboard',
-        meta: { title: 'Dashboard', icon: 'dashboard', affix: true }
-      }
-    ]
+    component: () => import('@/views/home/index'),
+    hidden: true
   },
+  // {
+  //   path: '/',
+  //   component: Layout,
+  //   children: [
+  //     {
+  //       path: 'home',
+  //       component: () => import('@/views/home/index'),
+  //       name: 'Dashboard',
+  //       meta: { title: 'Dashboard', icon: 'dashboard', affix: true }
+  //     }
+  //   ]
+  // },
   {
     path: '/documentation',
     component: Layout,
@@ -307,6 +317,42 @@ export const asyncRoutes = [
         name: 'UploadExcel',
         meta: { title: 'Upload Excel' }
       }
+    ]
+  },
+  {
+    path: '/Blog',
+    component: Layout,
+    redirect: '/blog/export-excel',
+    name: 'blog',
+    meta: {
+      title: '内容',
+      icon: 'excel'
+    },
+    children: [
+      {
+        path: 'blog-posts',
+        component: () => import('@/views/blog/posts.vue'),
+        name: 'posts',
+        meta: { title: '文章', requireAuth: fa }
+      },
+      {
+        path: 'blog-comments.vue',
+        component: () => import('@/views/blog/comments.vue'),
+        name: 'comments',
+        meta: { title: '评论' }
+      },
+      {
+        path: 'export-merge-header',
+        component: () => import('@/views/login/index'),
+        name: 'MergeHeader',
+        meta: { title: 'Merge Header' }
+      }
+      // {
+      //   path: 'upload-excel',
+      //   component: () => import('@/views/excel/upload-excel'),
+      //   name: 'UploadExcel',
+      //   meta: { title: 'Upload Excel' }
+      // }
     ]
   },
 

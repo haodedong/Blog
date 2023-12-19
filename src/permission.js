@@ -8,7 +8,7 @@ import getPageTitle from '@/utils/get-page-title'
 
 NProgress.configure({ showSpinner: false }) // NProgress Configuration
 
-const whiteList = ['/login', '/auth-redirect'] // no redirect whitelist
+const whiteList = ['/login', '/auth-redirect', '/home', '/blog', '/home2', '/'] // no redirect whitelist
 
 router.beforeEach(async(to, from, next) => {
   // start progress bar
@@ -57,10 +57,14 @@ router.beforeEach(async(to, from, next) => {
   } else {
     /* has no token*/
 
+    debugger
     if (whiteList.indexOf(to.path) !== -1) {
       // in the free login whitelist, go directly
+      console.log('进入白名单')
       next()
     } else {
+      debugger
+      console.log('进入请求路由')
       // other pages that do not have permission to access are redirected to the login page.
       next(`/login?redirect=${to.path}`)
       NProgress.done()

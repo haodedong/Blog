@@ -48,6 +48,7 @@ export default {
   },
   methods: {
     back() {
+      debugger
       if (this.$route.query.noGoBack) {
         this.$router.push({ path: '/dashboard' })
       } else {
